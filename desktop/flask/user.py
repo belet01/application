@@ -33,20 +33,13 @@ with app.app_context():
 
 @app.route("/")
 def home():
-    todos = []
-    for todo in TodoItem.query.order_by(TodoItem.data_completed.desc()).all():
-        todo.id = str(todo.id)
-        if todo.data_completed:
-            todo.data_completed = todo.data_completed.strftime("%b %d %Y %H:%M:%S")
-        else:
-            todo.data_completed = None 
-        todos.append(todo)
-    return render_template("index.html", title="Layout page", todos=todos)
+    return render_template("index.html")
 
 
 
 @app.route("/add_todo", methods=['GET', 'POST'])
 def add_todo():
+<<<<<<< HEAD
     if request.method == 'POST':
         form = TodoFrom() 
         todo_name = form.name.data
@@ -71,6 +64,17 @@ def add_todo():
 @app.route("/update", methods = ['GET'])
 def put():
     return " "    
+=======
+    return render_template("add_todo.html")
+
+
+
+
+@app.route("/update_todo/<int:id>", methods=['POST', 'GET'])
+def update_todo(id):
+    return " "
+  
+>>>>>>> 415a1b1 (python dosyasi olusturuldu)
 
 @app.route('/delete', methods = ['DELETE'])
 def delete():
@@ -81,5 +85,8 @@ def delete():
 if __name__== '__main__':
     app.run(debug=True)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 415a1b1 (python dosyasi olusturuldu)
 
