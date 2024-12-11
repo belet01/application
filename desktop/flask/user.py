@@ -27,7 +27,15 @@ with app.app_context():
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    todos = []
+    for todo in TodoItem.query.order_by(TodoItem.data_completed.desc()).all():
+        todo.id = str(todo.id)
+        if todo.data_completed:
+            todo.data_completed = todo.data_completed.strftime("%b %d %Y %H:%M:%S")
+        else:
+            todo.data_completed = None 
+        todos.append(todo)
+    return render_template("index.html", title="Layout page", todos=todos)
 
 
 
