@@ -24,12 +24,6 @@ class TodoItem(db.Model):
 with app.app_context():
     db.create_all()
 
-@app.route("/")
-def home():
-    return " "
-
-with app.app_context():
-    db.create_all()
 
 @app.route("/")
 def home():
@@ -39,42 +33,13 @@ def home():
 
 @app.route("/add_todo", methods=['GET', 'POST'])
 def add_todo():
-<<<<<<< HEAD
-    if request.method == 'POST':
-        form = TodoFrom() 
-        todo_name = form.name.data
-        todo_description = form.description.data
-        completed = form.completed.data
-        completed = True if completed in [True, 'True', 'true', 1] else False
-        new_todo = TodoItem(
-            name=todo_name,
-            description=todo_description,
-            completed=completed,
-            data_completed=datetime.utcnow()
-        )
-        db.session.add(new_todo)
-        db.session.commit()
-        flash("Todo successfully added!", "success")
-        return redirect("/")
-    else:
-        form = TodoFrom() 
-    return render_template("add_todo.html", form=form)
-
-
-@app.route("/update", methods = ['GET'])
-def put():
-    return " "    
-=======
     return render_template("add_todo.html")
 
 
 
-
-@app.route("/update_todo/<int:id>", methods=['POST', 'GET'])
-def update_todo(id):
+@app.route('/update', methods = ['POST', 'GET'])
+def delete():
     return " "
-  
->>>>>>> 415a1b1 (python dosyasi olusturuldu)
 
 @app.route('/delete', methods = ['DELETE'])
 def delete():
@@ -84,9 +49,4 @@ def delete():
     
 if __name__== '__main__':
     app.run(debug=True)
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 415a1b1 (python dosyasi olusturuldu)
 
