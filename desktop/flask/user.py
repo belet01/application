@@ -39,7 +39,7 @@ def add_todo():
 
 @app.route('/update', methods = ['POST', 'GET'])
 def delete():
-    return " "
+    return "  "
 
 @app.route('/delete', methods = ['DELETE'])
 def delete():
