@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  python-app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://mypostgres:dbelet@db:5432/mypostgres
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: mypostgres
+      POSTGRES_PASSWORD: dbelet
+      POSTGRES_DB: mypostgres
+    ports:
+      - "5436:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
