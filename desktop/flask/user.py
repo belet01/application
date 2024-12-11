@@ -93,14 +93,15 @@ def update_todo(id):
 
 
 
+@app.route('/delete_todo/<int:id>', methods=['POST', 'GET'])
+def delete_todo(id):
+    todo = db.session.query(TodoItem).get(id)
+    db.session.delete(todo)
+    db.session.commit()
+    flash("Todo deleted", "success")
+    return redirect("/")
 
-@app.route('/delete_todo/<int:id>', methods = ['DELETE'])
-def delete(id):
-    return " "
-
-
-
-    
+  
 if __name__== '__main__':
     app.run(debug=True)
 
