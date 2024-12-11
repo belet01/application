@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, flash, redirect
-from forms import TodoFrom
+from forms import TodoForm
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 from flask_migrate import Migrate
@@ -41,7 +41,25 @@ def home():
 
 @app.route("/add_todo", methods=['GET', 'POST'])
 def add_todo():
-    return render_template("add_todo.html")
+    if request.method == 'POST':
+        form = TodoForm() 
+        todo_name = form.name.data
+        todo_description = form.description.data
+        completed = form.completed.data
+        completed = True if completed in [True, 'True', 'true', 1] else False
+        new_todo = TodoItem(
+            name=todo_name,
+            description=todo_description,
+            completed=completed,
+            data_completed=datetime.utcnow()
+        )
+        db.session.add(new_todo)
+        db.session.commit()
+        flash("Todo successfully added!", "success")
+        return redirect("/")
+    else:
+        form = TodoForm() 
+    return render_template("add_todo.html", form=form)
 
 
 
