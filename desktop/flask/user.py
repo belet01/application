@@ -63,13 +63,41 @@ def add_todo():
 
 
 
-@app.route('/update', methods = ['POST', 'GET'])
-def delete():
-    return "  "
+@app.route('/update_todo/<int:id>', methods=['POST', 'GET'])
+def update_todo(id):
+    if request.method == 'POST':
+        form = TodoForm(request.form)
+        todo_name = form.name.data
+        todo_description = form.description.data
+        completed = form.completed.data
+        completed = True if completed in [True, 'True', 'true', 1] else False
+        db.session.query(TodoItem).filter(TodoItem.id == id).update({
+            "name": todo_name,
+            "description": todo_description,
+            "completed": completed,
+            "data_completed": datetime.utcnow()
+        })
+        db.session.commit()
 
-@app.route('/delete', methods = ['DELETE'])
-def delete():
+        flash("Todo successfully updated!", "success")
+        return redirect("/")
+
+    else:
+        form = TodoForm()
+        todo = db.session.query(TodoItem).get(id)
+        if todo:
+            form.name.data = todo.name
+            form.description.data = todo.description
+            form.completed.data = todo.completed
+    return render_template("add_todo.html", form=form)
+
+
+
+
+@app.route('/delete_todo/<int:id>', methods = ['DELETE'])
+def delete(id):
     return " "
+
 
 
     

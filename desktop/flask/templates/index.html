@@ -11,7 +11,11 @@
 
             <p class="card-text text-muted">{{ todo.data_completed }}</p>
             <p class="card-text">{{ todo.description }}</p>
+
+            <a href="{{ url_for('update_todo', id = todo.id)}}" class="btn btn-outline-info btn-sm"> Update</a>
+            
         </div>
     </div>
+    {%endfor%}
 
 {% endblock %}
