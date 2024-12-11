@@ -1,4 +1,17 @@
 {% extends "loyout.html" %}
 {% block content %} 
+    {% for todo in todos %}
+    <div class="card p-1 m-3">
+        <div class="card-body">
+            {% if todo.completed %}
+                <h5 class="card-title"><del>{{ todo.name }}</del></h5>
+            {% else %}
+                <h5 class="card-title">{{ todo.name }}</h5>
+            {% endif %}
+
+            <p class="card-text text-muted">{{ todo.data_completed }}</p>
+            <p class="card-text">{{ todo.description }}</p>
+        </div>
+    </div>
 
 {% endblock %}
