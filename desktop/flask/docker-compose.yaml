@@ -3,9 +3,11 @@ version: '3.8'
 services:
   python-app:
     build: .
+    command: flask run --host=0.0.0.0 --port=5000
     depends_on:
       - db
     environment:
+      - FLASK_ENV=development
       - DATABASE_URL=postgresql://mypostgres:dbelet@db:5432/mypostgres
     ports:
       - "5000:5000"
