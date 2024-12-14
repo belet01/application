@@ -51,7 +51,7 @@ def add_todo():
             name=todo_name,
             description=todo_description,
             completed=completed,
-            data_completed=datetime.utcnow()
+            data_completed=datetime.now()
         )
         db.session.add(new_todo)
         db.session.commit()
@@ -75,7 +75,7 @@ def update_todo(id):
             "name": todo_name,
             "description": todo_description,
             "completed": completed,
-            "data_completed": datetime.utcnow()
+            "data_completed": datetime.now()
         })
         db.session.commit()
 
