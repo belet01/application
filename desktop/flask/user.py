@@ -3,6 +3,7 @@ from forms import TodoForm
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
+import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '6e9cbf576a31bba80f0a34e35c2e678b1e2eba9885edaf99f3ce4aa2f5'
@@ -29,10 +30,6 @@ def home():
     todos = []
     for todo in TodoItem.query.order_by(TodoItem.data_completed.desc()).all():
         todo.id = str(todo.id)
-        if todo.data_completed:
-            todo.data_completed = todo.data_completed.strftime("%b %d %Y %H:%M:%S")
-        else:
-            todo.data_completed = None 
         todos.append(todo)
     return render_template("index.html", title="Layout page", todos=todos)
 
@@ -50,7 +47,7 @@ def add_todo():
             name=todo_name,
             description=todo_description,
             completed=completed,
-            data_completed=datetime.now()
+            data_completed=time.ctime()
         )
         db.session.add(new_todo)
         db.session.commit()
@@ -73,11 +70,9 @@ def update_todo(id):
         db.session.query(TodoItem).filter(TodoItem.id == id).update({
             "name": todo_name,
             "description": todo_description,
-            "completed": completed,
-            "data_completed": datetime.now()
+            "completed": completed
         })
         db.session.commit()
-
         flash("Todo successfully updated!", "success")
         return redirect("/")
 
@@ -89,6 +84,20 @@ def update_todo(id):
             form.description.data = todo.description
             form.completed.data = todo.completed
     return render_template("add_todo.html", form=form)
+
+
+@app.route('/update_all_todos/<int:status>', methods=['GET'])
+def update_all_todos(status):
+    if status == 1: 
+        todos = db.session.query(TodoItem).filter_by(completed=True).all()
+        flash("Tamamlananlar", "info")
+    elif status == 0: 
+        todos = db.session.query(TodoItem).filter_by(completed=False).all()
+        flash("Tamamlanmayanlar", "info")
+    else:  
+        flash("Geçersiz durum!", "danger")
+        return redirect("/")
+    return render_template("index.html", todos=todos)
 
 
 

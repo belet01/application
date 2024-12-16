@@ -9,11 +9,17 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
     crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.12.5/dist/sweetalert2.all.min.js"></script>
-    {%if title %}
-        <title> Flask app {{ title}}</title>
-    {%else%}
-        <title> Flask app</title>
-    {%endif%}
+    <style>
+        .top-right-buttons {
+            position: absolute; /* Sayfa içindeki bir noktaya göre konumlandırma */
+            top: 80px; /* Navbar'ın hemen altında */
+            right: 20px; /* Sağdan 20px içeride */
+        }
+
+        .top-right-buttons form {
+            margin-bottom: 10px; /* Butonlar arasında boşluk */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -35,6 +41,16 @@
             </div>
           </nav>
     </header>
+
+    <div class="top-right-buttons">
+        <form action="{{ url_for('update_all_todos', status=1) }}" method="get">
+            <button type="submit" class="btn btn-success" style="background-color: burlywood; color: black;">Tamamlandı</button>
+        </form>
+        <form action="{{ url_for('update_all_todos', status=0) }}" method="get">
+            <button type="submit" class="btn btn-warning" style="background-color: #ff5733; color: white;";">Tamamlanmadı</button>
+        </form>
+    </div>
+
     <main class="container-fluid">
         <div class="row">
             <div class="col-md-2"></div>
