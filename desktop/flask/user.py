@@ -1,7 +1,6 @@
 from flask import Flask, request, render_template, flash, redirect
 from forms import TodoForm
 from flask_sqlalchemy import SQLAlchemy
-import psycopg2
 from flask_migrate import Migrate
 from datetime import datetime
 
