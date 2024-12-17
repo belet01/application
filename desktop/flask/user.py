@@ -90,10 +90,8 @@ def update_todo(id):
 def update_all_todos(status):
     if status == 1: 
         todos = db.session.query(TodoItem).filter_by(completed=True).all()
-        flash("Tamamlananlar", "info")
     elif status == 0: 
         todos = db.session.query(TodoItem).filter_by(completed=False).all()
-        flash("Tamamlanmayanlar", "info")
     else:  
         flash("Geçersiz durum!", "danger")
         return redirect("/")

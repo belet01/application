@@ -44,10 +44,10 @@
 
     <div class="top-right-buttons">
         <form action="{{ url_for('update_all_todos', status=1) }}" method="get">
-            <button type="submit" class="btn btn-success" style="background-color: burlywood; color: black;">Tamamlandı</button>
+            <button type="submit" class="btn btn-success" style="background-color: rgb(184, 222, 135); color: black;">Completed</button>
         </form>
         <form action="{{ url_for('update_all_todos', status=0) }}" method="get">
-            <button type="submit" class="btn btn-warning" style="background-color: #ff5733; color: white;";">Tamamlanmadı</button>
+            <button type="submit" class="btn btn-warning" style="background-color: #6933ff; color: white;">Incomplete</button>
         </form>
     </div>
 
