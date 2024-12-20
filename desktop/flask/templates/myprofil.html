@@ -1,0 +1,56 @@
+{% extends "loyout.html" %}
+{% block content %}
+    <div class="profile-container">
+        <h2> My profile ({{ user.username }})!</h2>
+        <hr>
+        <div class="container">
+            <button  style="background-color: bisque; font-style: italic;"> Total todo:{{ todo_count}} 
+            </button>
+        </div>
+    </div>
+    <hr> 
+    <div class="profile-container">
+        <h3>Added Todos:</h3>
+            {% if todo_count != 0 %}
+                {% for todo in todos %}
+                <div class="mt-4 card p-2 m-4" style="background-color: rgb(232, 217, 228);">
+                    <div class="card-body">
+                        {% if todo.completed %}
+                            <h5 class="card-title"><del>{{ todo.name }}</del></h5>
+                        {% else %}
+                            <h5 class="card-title">{{ todo.name }}</h5>
+                        {% endif %}
+                        <p class="card-text text-muted">{{ todo.data_completed }}</p>
+                        <p class="card-text">{{ todo.description }}</p>
+                        {% if 'username' in session %}
+                            <a href="{{ url_for('update_todo', id=todo.id) }}" class="btn btn-outline-info btn-sm">Update</a>
+                            <a href="{{ url_for('delete_todo', id=todo.id) }}" class="btn btn-outline-danger btn-sm">Delete</a>
+                        {% endif %}
+                {% endfor %}
+            {% else %}
+                <div id="logoutConfirmation" class="alert alert-warning alert-dismissible fade show" role="alert" 
+                style="position: fixed; top: 250px; left: 50%; transform: translateX(-50%); z-index: 9999; width: 550px; background-color: #d4b9a6; color: #333; text-align: center; padding-bottom: 20px;">
+                <strong>Todo eklemek ister misiniz?</strong>
+                <div style="display: flex; justify-content: center; margin-top: 20px;">
+                <form method="POST" style="margin-right: 10px;">
+                        <a href="{{ url_for('add_todo') }}" class="btn btn-secondary"> Yes</a> 
+                    <a href="{{ url_for('my_profile', username=session['username'])}}" class="btn btn-secondary">No</a>
+                </form>
+                </div>
+                </div>
+                </div>
+            {% endif %}
+    </div>
+    <div style="display: flex; justify-content: flex-end; position: fixed; top: 20px; right: 0; z-index: 9999;">
+        <div class="dropdown">
+            <button id="settingsDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none; font-size: 30px;">
+                <span style="color: aliceblue;">⋮</span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="settingsDropdown" style="background-color: darkslategrey; color: rgb(125, 104, 76);">
+                <li><a class="dropdown-item" href="{{ url_for('profile_settings', id=user.id) }}" style="color: azure;">Profil</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('theme_settings') }}" style="color: azure;">Tema</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('logout') }}" style="color: azure;">Çıkış Yap</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "loyout.html" %}
+
+{% block content %}
+ 
+    <div id="logoutConfirmation" class="alert alert-warning alert-dismissible fade show" role="alert" 
+    style="position: fixed; top: 250px; left: 50%; transform: translateX(-50%); z-index: 9999; width: 550px; background-color: #ffcc00; color: #333; text-align: center; padding-bottom: 20px;">
+    <strong>Are you sure you want to log out?</strong>
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+    <form method="POST" style="margin-right: 10px;">
+        <button type="submit" class="btn btn-danger">Yes</button>
+    </form>
+    <a href="{{ url_for('home') }}" class="btn btn-secondary">No</a>
+    </div>
+    </div>
+
+
+{% endblock %}

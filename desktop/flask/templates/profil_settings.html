@@ -1,0 +1,48 @@
+{% extends "settings.html" %}
+
+{% block title %}Profil Ayarları{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <form method="POST" action="" class="position-relative">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group mb-4">
+            <label for="username" class="form-label" style="display: block; font-weight: bold;">Kullanıcı Adı:</label>
+            <input type="text" id="username" name="username" class="form-control" 
+                   value="{{ form.username.data }}" required 
+                   style="border-radius: 5px; padding: 8px; width: 100%;">
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="password" class="form-label" style="display: block; font-weight: bold;">Şifre:</label>
+            <input type="password" id="password" name="password" class="form-control" 
+                   value="{{ form.password.data }}" required 
+                   style="border-radius: 5px; padding: 8px; width: 100%;">
+        </div>
+        <button type="submit" class="btn btn-primary position-absolute" 
+                style="bottom: 20px; right: 20px; background-color: #f4a261; border-color: #f4a261;">
+            Güncelle
+        </button>
+    </form>
+
+    <div class="text-end mt-4">
+        <a href="{{ url_for('my_profile', username=session['username']) }}" class="btn btn-secondary">
+            Geri
+        </a>
+    </div>
+
+    <div class="form-group mt-5">
+        <label for="delete_account" style="display: block; font-weight: bold; color: red;">Hesabınızı silmek istiyor musunuz?</label>
+        <form method="POST" action='' id="deleteAccountForm">
+            {% if 'username' in session %}
+                <a href="{{ url_for('delete_account', id=users.id) }}" class="btn btn-outline-info btn-sm">Yes</a>
+            {% endif %}
+                <a href="{{url_for('my_profile', username=session.get('username')) }}">No</a>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
+

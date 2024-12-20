@@ -1,0 +1,49 @@
+{% extends "loyout.html" %}
+
+{% block content %}
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+
+  <div class="login-container container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="box" style="background: linear-gradient(45deg, #f5f5f5, #f4e1d2); padding: 40px; border-radius: 10px; box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);">
+          <h2 class="title is-2 has-text-centered" style="color: #5c4d4a;">Login</h2>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              <div class="notification is-danger">
+                <p>{{ messages[0][1] }}</p>
+              </div>
+            {% endif %}
+          {% endwith %}
+          <form method="POST">
+            <div class="form-group login-container">
+              {{ form.hidden_tag() }}
+              
+              <div class="field">
+                <label class="label is-small" for="username" style="color: #5c4d4a; font-size: 14px;">{{ form.username.label }}</label>
+                <div class="control">
+                  {{ form.username(class="input is-medium") }}
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label is-small" for="password" style="color: #5c4d4a; font-size: 14px;">{{ form.password.label }}</label>
+                <div class="control">
+                  {{ form.password(class="input is-medium") }}
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                  <button type="submit" class="button is-primary is-fullwidth is-medium" style="background-color: #f4e1d2; color: #5c4d4a; border-radius: 2px;">Login</button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <p class="mt-3 has-text-centered">Don't have an account? <a href="/register" style="color: #5c4d4a;">Register here</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

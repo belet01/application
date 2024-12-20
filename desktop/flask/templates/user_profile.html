@@ -1,0 +1,29 @@
+{% extends "loyout.html" %}
+{% block content %}
+    <div class="profile-container">
+        <h1>{{ (user.username).capitalize()}}'s profile</h1>
+        <hr>
+        <button style="background-color: bisque; font-style: italic;">
+           {{(user.username).capitalize()}}'s todos total: {{ todo_count }}
+        </button>
+        <hr>
+
+        <h3> Added Todos:</h3>
+        <hr>
+        {% if todo_count != 0 %}
+            {% for todo in todos %}
+                <div class="card p-1 m-3">
+                    <div class="card-body">
+                        {% if todo.completed %}
+                            <h5 class="card-title"><del>{{ todo.name }}</del></h5>
+                        {% else %}
+                            <h5 class="card-title">{{ todo.name }}</h5>
+                        {% endif %}
+                        <p class="card-text text-muted">{{ todo.data_completed }}</p>
+                        <p class="card-text">{{ todo.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "settings.html" %}
+{% block content %}
+        <form method="POST" action="">
+            <label>
+                <input type="radio" name="theme" value="dark" {% if session.get('theme') == 'dark' %}checked{% endif %}>
+             Dark
+            </label>
+
+
+                <div class="center">
+                    <label>
+                    <input type="radio" name="theme" value="light" {% if session.get('theme') == 'light' %}checked{% endif %}>
+                    Light
+                    </label>
+                </div>
+            <label>
+                <input type="radio" name="theme" value="creamy" {% if session.get('theme') == 'creamy' %}checked{% endif %}>
+                Kremsi Tema
+            </label>
+            <button type="submit" class="btn btn-primary">ok</button>
+        </form>
+    </div>
+{%endblock%}

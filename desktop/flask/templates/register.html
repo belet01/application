@@ -1,0 +1,54 @@
+{% extends "loyout.html" %}
+
+{% block content %}
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+
+  <div class="register-container container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="box" style="background: linear-gradient(45deg, #f5f5f5, #f4e1d2); padding: 40px; border-radius: 10px; box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);">
+          <h2 class="title is-2  has-text-centered" style="color: #5c4d4a;">Sign Up</h2>
+          <form method="POST">
+            <div class="form-group register-container">
+              {{ form.hidden_tag() }}
+              
+              <div class="field">
+                <label class="label is-small" for="username" style="color: #5c4d4a; font-size: 14px;">{{ form.username.label }}</label>
+                <div class="control">
+                  {{ form.username(class="input is-medium") }}
+                </div>
+              </div>
+              
+              <div class="field">
+                <label class="label is-small" for="email" style="color: #5c4d4a; font-size: 14px;">{{ form.email.label }}</label>
+                <div class="control">
+                  {{ form.email(class="input is-medium") }}
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label is-small" for="password" style="color: #5c4d4a; font-size: 14px;">{{ form.password.label }}</label>
+                <div class="control">
+                  {{ form.password(class="input is-medium") }}
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label is-small" for="confirm_password" style="color: #5c4d4a; font-size: 14px;">{{ form.confirm_password.label }}</label>
+                <div class="control">
+                  {{ form.confirm_password(class="input is-medium") }}
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                  <button type="submit" class="button is-primary is-fullwidth is-medium" style="background-color: #f4e1d2; color: #5c4d4a; border-radius: 2px;">Register</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

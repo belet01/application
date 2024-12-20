@@ -1,22 +1,43 @@
 {% extends "loyout.html" %}
-{% block content %} 
+{% block content %}
+    <div class="top-right-buttons">
+        <form action="{{ url_for('update_all_todos', status=1) }}" method="get">
+            <button type="submit" class="btn btn-success" style="background-color: rgb(242, 225, 203); color: black;">Completed</button>
+        </form>
+        <form action="{{ url_for('update_all_todos', status=0) }}" method="get">
+            <button type="submit" class="btn btn-warning" style="background-color: #937e8f; color: rgb(245, 250, 222);">Incomplete</button>
+        </form>
+    </div>
+
+    <!-- Todo kartları -->
     {% for todo in todos %}
     <div class="card p-1 m-3">
         <div class="card-body">
+            {% if todo.user %}
+            <div class="username-display text-left mb-1">
+                <div style="font-style: italic; font-weight: normal;">
+                    Username:
+                    <a href="{{ url_for('profile', username=todo.user.username) }}">
+                        {{ todo.user.username }}</a>
+                </div>
+            </div>
+            {% endif %}
+
             {% if todo.completed %}
                 <h5 class="card-title"><del>{{ todo.name }}</del></h5>
             {% else %}
-                <h5 class="card-title">{{ todo.name }}</h5>
+                <h5 class="card-title"><span class="underline">{{ todo.name }}</span></h5>
             {% endif %}
 
             <p class="card-text text-muted">{{ todo.data_completed }}</p>
             <p class="card-text">{{ todo.description }}</p>
 
-            <a href="{{ url_for('update_todo', id = todo.id)}}" class="btn btn-outline-info btn-sm"> Update</a>
-            
-            <a href="{{ url_for('delete_todo', id = todo.id)}}" class="btn btn-outline-danger btn-sm"> Delete </a>
+            {% if 'username' in session %}
+                <a href="{{ url_for('update_todo', id=todo.id) }}" class="btn btn-outline-info btn-sm">Update</a>
+                <a href="{{ url_for('delete_todo', id=todo.id) }}" class="btn btn-outline-danger btn-sm">Delete</a>
+            {% endif %}
         </div>
     </div>
-    {%endfor%}
+    {% endfor %}
 
 {% endblock %}
