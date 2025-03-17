@@ -1,0 +1,13 @@
+db:
+  host: "localhost"
+  port: "5436"
+  user: "mypostgres"
+  password: "dbelet"
+  dbname: "apptodo"
+  sslmode: "disable"
+
+kafka:
+  broker: "localhost:9092"
+
+server:
+  domain: "http://localhost:8080"
